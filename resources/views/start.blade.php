@@ -22,13 +22,10 @@
                     <tr>
                         <th>ID</th>
                         <th>Shop</th>
-                        <th>Email</th>
                         <th>Country</th>
-                        <th>State</th>
-                        <th>City</th>
                         <th>Api orders</th>
                         <th>Email orders</th>
-                        <th>Storefront orders</th>
+                        <th>Store orders</th>
                         <th>Last activity</th>
                         <th>Installed</th>
                         <th>Install date</th>
@@ -38,11 +35,8 @@
                     @foreach($allShops as $shop)
                         <tr>
                             <td>{{$shop->id}}</td>
-                            <td>{{$shop->shop}}</td>
-                            <td>{{$shop->email}}</td>
-                            <td>{{$shop->country}}</td>
-                            <td>{{$shop->province}}</td>
-                            <td>{{$shop->city}}</td>
+                            <td>{{$shop->shop}} {{$shop->email}}</td>
+                            <td>{{$shop->country}} - {{$shop->province}} {{$shop->city}}</td>
                             <td>{{$shop->count_api_order}}</td>
                             <td>{{$shop->count_email_order}}</td>
                             <td>{{$shop->count_storefront_order}}</td>
