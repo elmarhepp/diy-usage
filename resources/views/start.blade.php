@@ -22,6 +22,7 @@
                     <tr>
                         <th>ID</th>
                         <th>Shop</th>
+                        <th>Email</th>
                         <th>Country</th>
                         <th>State</th>
                         <th>City</th>
@@ -38,6 +39,7 @@
                         <tr>
                             <td>{{$shop->id}}</td>
                             <td>{{$shop->shop}}</td>
+                            <td>{{$shop->email}}</td>
                             <td>{{$shop->country}}</td>
                             <td>{{$shop->province}}</td>
                             <td>{{$shop->city}}</td>
