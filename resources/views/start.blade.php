@@ -2,7 +2,6 @@
 
 @section('content')
 
-    <br><br>
     <div class="panel panel-default">
         <div class="panel-body">
 
@@ -22,7 +21,7 @@
                     <tr>
                         <th>ID</th>
                         <th>Shop</th>
-                        <th>Country</th>
+                        <th>Country/City</th>
                         <th>Api orders</th>
                         <th>Email orders</th>
                         <th>Store orders</th>
@@ -35,8 +34,8 @@
                     @foreach($allShops as $shop)
                         <tr>
                             <td>{{$shop->id}}</td>
-                            <td>{{$shop->shop}} {{$shop->email}}</td>
-                            <td>{{$shop->country}} - {{$shop->province}} {{$shop->city}}</td>
+                            <td>{{$shop->shop}} - {{$shop->email}}</td>
+                            <td>{{$shop->country}} - {{$shop->province}} - {{$shop->city}}</td>
                             <td>{{$shop->count_api_order}}</td>
                             <td>{{$shop->count_email_order}}</td>
                             <td>{{$shop->count_storefront_order}}</td>
