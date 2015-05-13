@@ -3,7 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
-class UpdateAuthorizationsTable extends Migration
+class UpdateDatabaseVersionTable extends Migration
 {
 
     /**
@@ -13,9 +13,8 @@ class UpdateAuthorizationsTable extends Migration
      */
     public function up()
     {
-        Schema::table('authorizations', function (Blueprint $table) {
-            $table->renameColumn('import_products', 'installed');
-            $table->dropColumn('import_customers');
+        Schema::table('database_version', function (Blueprint $table) {
+            $table->integer('version')->default(1);
         });
     }
 
@@ -26,7 +25,7 @@ class UpdateAuthorizationsTable extends Migration
      */
     public function down()
     {
-        Schema::table('authorizations', function (Blueprint $table) {
+        Schema::table('database_version', function (Blueprint $table) {
             //
         });
     }
