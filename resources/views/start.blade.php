@@ -82,7 +82,6 @@
 
             </div>
 
-            <input type="hidden" id="shopURL" value="{{ $shopURL }}">
 
         </div>
     </div>
