@@ -1,0 +1,11 @@
+.col-fixed {
+    width: 65px;
+    float: left;
+    margin-right: 10px;
+}
+
+.col-fixed2 {
+    width: 105px;
+    float: left;
+    margin-right: 10px;
+}

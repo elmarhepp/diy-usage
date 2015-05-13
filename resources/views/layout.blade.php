@@ -58,6 +58,8 @@
 
     </div>
 
+    <input type="hidden" id="base-url-1" value="{{ url() }}">
+
 
     <!-- Site footer -->
     <footer class="footer">

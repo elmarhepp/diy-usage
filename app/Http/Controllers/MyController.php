@@ -3,6 +3,7 @@
 use App\Models\Authorization;
 use Log;
 use DB;
+use Input;
 
 class MyController extends Controller
 {
@@ -11,7 +12,6 @@ class MyController extends Controller
     public function index()
     {
         Log::debug('MyController.index');
-
 
         $countInstalledShops = Authorization::whereRaw('installed = 1')->count();
         $countUninstalledShops = Authorization::whereRaw('installed = 0')->count();
@@ -36,5 +36,32 @@ class MyController extends Controller
             ->with('countAllShops', $countAllShops)
             ->with('allShops', $allShops);
     }
+
+
+    /**
+     * AJAX function to paginate product
+     * @return array
+     */
+    public function shopPage()
+    {
+        $page = Input::get('page');
+        $sortResults = Input::get('sortResults');
+        $installedShops = Input::get('installedShops');
+        $unInstalledShops = Input::get('unInstalledShops');
+
+
+        list($productList, $totalPages) = $this->shopifyModel->getShops($page, $sortResults, $installedShops, $unInstalledShops);
+        $result = array(
+            'productList' => $productList,
+            'totalPages' => $totalPages
+        );
+
+        $jsonResult = json_encode($result);
+        //Log::debug("productPage: page = $page, filter = $filter, jsonResult = $jsonResult");
+
+        return $jsonResult;
+    }
+
+
 
 }
