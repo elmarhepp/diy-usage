@@ -5,7 +5,10 @@ var baseUrl = '';
 $(document).ready(function () {
 
     initialize();
+    ajaxSetup();
     changeSorting();
+    changeInstallCheckbox();
+    changeUninstallCheckbox();
 
 });
 
@@ -13,6 +16,14 @@ $(document).ready(function () {
 /* initialize */
 function initialize() {
     baseUrl = $('#base-url-1').val();
+}
+
+function ajaxSetup() {
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
 }
 
 
@@ -23,6 +34,19 @@ function changeSorting()
     });
 }
 
+function changeInstallCheckbox()
+{
+    $(document).on('change', '#installedShops', function () {
+        callShopPages(1);
+    });
+}
+
+function changeUninstallCheckbox()
+{
+    $(document).on('change', '#unInstalledShops', function () {
+        callShopPages(1);
+    });
+}
 
 /**
  * call shop pages
@@ -30,10 +54,10 @@ function changeSorting()
  */
 function callShopPages(page) {
     var sortResults = $('#sortResults').val();
-    var installedShops = $('#installedShops').val();
-    var unInstalledShops = $('#unInstalledShops').val();
+    var installedShops = $('#installedShops').is(':checked');
+    var unInstalledShops = $('#unInstalledShops').is(':checked');
 
-    //console.log('clickOnProductPages for page = ' + page + ' and textFilter = ' + textFilter + ', productFilter = ' + productFilter + ', vendorFilter = ' + vendorFilter + ', productsPerPage = ' + productsPerPage);
+    console.log('callShopPages for page = ' + page + ' and sortResults = ' + sortResults + ', installedShops = ' + installedShops + ', unInstalledShops = ' + unInstalledShops);
 
     var myData = {
         page: page,
@@ -50,30 +74,32 @@ function callShopPages(page) {
         success: function (resultData) {
             //console.log("AJAX 1 - clickOnProductPages: resultData = " + resultData);
             var resultObject = JSON.parse(resultData);
-            var productList = resultObject['productList'];
+            var allShops = resultObject['allShops'];
             var totalPages = resultObject['totalPages'];
-            var productLinks = buildPageLinks(Number(page), Number(totalPages), baseUrl + '/newOrder?shopURL=' + shopURL);
+            var shopLinks = buildPageLinks(Number(page), Number(totalPages), baseUrl + '/');
 
-            var products = "";
-            var length = productList.length;
+            var shops = "";
+            var length = allShops.length;
             //console.log("AJAX 2 - clickOnProductPages: length = " + length);
 
             // loop over products
             for (i = 0; i < length; i++) {
-                var pro = productList[i];
-                products += "<tr>";
-                products += "<td>" + pro['image'] + "</td>";
-                products += "<td><a href='" + pro['product_id'] + "' pid='" + pro['product_id'] + "'>" + pro['title'] + "</a></td>";
-                products += "<td>" + pro['inventory'] + "</td>";
-                products += "<td>" + pro['product_type'] + "</td>";
-                products += "<td>" + pro['vendor'] + "</td>";
-                products += "<td>" + pro['price'] + "</td>";
-                products += "</tr>";
+                var shop = allShops[i];
+                shops += "<tr>";
+                shops += "<td>" + shop['id'] + "</td>";
+                shops += "<td>" + shop['shop'] +" - "+ shop['shop'] + "</td>";
+                shops += "<td>" + shop['country'] +" - "+ shop['province'] +" - "+ shop['city'] + "</td>";
+                shops += "<td>" + shop['count_api_order'] + "</td>";
+                shops += "<td>" + shop['count_email_order'] + "</td>";
+                shops += "<td>" + shop['count_storefront_order'] + "</td>";
+                shops += "<td>" + shop['last_active'] + "</td>";
+                shops += "<td>" + shop['installed'] + "</td>";
+                shops += "<td>" + shop['install_date'] + "</td>";
+                shops += "</tr>";
             }
 
-            $('#searchableProduct1').html(products);
-            $('#productLinks').html(productLinks);
-            shopifyAppBarLoadingOff();
+            $('#shopDetails').html(shops);
+            $('#productLinks').html(shopLinks);
         }
     });
 }

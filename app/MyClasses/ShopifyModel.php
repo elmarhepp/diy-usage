@@ -29,13 +29,16 @@ class ShopifyModel
             $query .= "on a.id = u.shop_id ";
 
             // filter
-            if (!empty($installedShops) || !empty($unInstalledShops)) {
-                $query .= "where 1=1 ";
-                if (!empty($installedShops)) {
-                    $query .= "and a.installed = 1 ";
+            if (($installedShops == 'true') || ($unInstalledShops == 'true')) {
+                $query .= "where ";
+                if ($installedShops == 'true') {
+                    $query .= "a.installed = 1 ";
+                    if ($unInstalledShops == 'true') {
+                        $query .= "or a.installed = 0 ";
+                    }
                 }
-                if (!empty($unInstalledShops)) {
-                    $query .= "and a.installed = 0 ";
+                if ($installedShops == 'false' && $unInstalledShops == 'true') {
+                    $query .= " a.installed = 0 ";
                 }
             }
             // sort
@@ -56,12 +59,13 @@ class ShopifyModel
                     $query .= "order by s.country, s.province, s.city ";
             }
 
+            Log::debug("ShopifyModel.getShops query = $query");
             $allShops = DB::select($query);
             return $allShops;
         } catch (Exception $e) {
             Log::error("ShopifyModel.getShops Exception = " . $e->getMessage(), $e->getTraceAsString());
         }
-        return array();
+        return null;
     }
 
 }

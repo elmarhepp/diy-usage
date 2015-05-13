@@ -4,10 +4,19 @@ use App\Models\Authorization;
 use Log;
 use DB;
 use Input;
+use App\MyClasses\ShopifyModel;
 
 class MyController extends Controller
 {
+    private $shopifyModel;
 
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->shopifyModel = new ShopifyModel();
+    }
 
     public function index()
     {
@@ -50,14 +59,14 @@ class MyController extends Controller
         $unInstalledShops = Input::get('unInstalledShops');
 
 
-        list($productList, $totalPages) = $this->shopifyModel->getShops($page, $sortResults, $installedShops, $unInstalledShops);
+        $allShops = $this->shopifyModel->getShops($page, $sortResults, $installedShops, $unInstalledShops);
         $result = array(
-            'productList' => $productList,
-            'totalPages' => $totalPages
+            'allShops' => $allShops,
+            'totalPages' => 1
         );
 
         $jsonResult = json_encode($result);
-        //Log::debug("productPage: page = $page, filter = $filter, jsonResult = $jsonResult");
+        Log::debug("shopPage: page = $page, jsonResult = $jsonResult");
 
         return $jsonResult;
     }

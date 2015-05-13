@@ -3,5 +3,6 @@
 
 Route::get('/', 'MyController@index');
 
-Route::get('shopPage', 'MyController@shopPage');
+// AJAX call to save a nexus address
+Route::post('shopPage', 'MyController@shopPage');
 

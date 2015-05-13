@@ -16,38 +16,60 @@
 
                 <h3>List of shops and app usage</h3>
 
-                <div>
-                    <div class="col-fixed">
-                        <select class="form-control" id="countResults">
-                            <option>5</option>
-                            <option>10</option>
-                            <option>20</option>
-                            <option selected>50</option>
-                            <option>100</option>
-                        </select>
+                <form class="form-horizontal">
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label for="countResults" class="col-sm-6 control-label">Number of results</label>
+
+                                <div class="col-sm-3">
+                                    <select class="form-control" id="countResults">
+                                        <option>5</option>
+                                        <option>10</option>
+                                        <option>20</option>
+                                        <option selected>50</option>
+                                        <option>100</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label for="sortResults" class="col-sm-6 control-label">Sort results</label>
+
+                                <div class="col-sm-5">
+                                    <select class="form-control" id="sortResults">
+                                        <option>ID</option>
+                                        <option>Shop</option>
+                                        <option>Last activity</option>
+                                        <option>Api orders</option>
+                                        <option>Email orders</option>
+                                        <option>Store orders</option>
+                                        <option>Country</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-2">
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" id="installedShops"> Show installed shops
+                                </label>
+                            </div>
+
+                        </div>
+                        <div class="col-sm-2">
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" id="unInstalledShops"> Show uninstalled shops
+                                </label>
+                            </div>
+                        </div>
+
                     </div>
-                    <div class="col-fixed2">
-                        <select class="form-control" id="sortResults">
-                            <option>ID</option>
-                            <option>Shop</option>
-                            <option>Last activity</option>
-                            <option>Api orders</option>
-                            <option>Email orders</option>
-                            <option>Store orders</option>
-                            <option>Country</option>
-                        </select>
-                    </div>
-                    <div class="checkbox">
-                        <label>
-                            <input type="checkbox" id="installedShops"> Show installed shops
-                        </label>
-                    </div>
-                    <div class="checkbox">
-                        <label>
-                            <input type="checkbox" id="unInstalledShops"> Show uninstalled shops
-                        </label>
-                    </div>
-                </div>
+                </form>
 
                 <table class="table table-striped">
                     <thead>
@@ -81,7 +103,7 @@
                 </table>
 
             </div>
-
+            <input type="hidden" name="_token" value="<?php echo csrf_token(); ?>">
 
         </div>
     </div>
