@@ -87,7 +87,7 @@ function callShopPages(page) {
                 var shop = allShops[i];
                 shops += "<tr>";
                 shops += "<td>" + shop['id'] + "</td>";
-                shops += "<td>" + shop['shop'] +" - "+ shop['shop'] + "</td>";
+                shops += "<td>" + shop['shop'] +" - "+ shop['email'] + "</td>";
                 shops += "<td>" + shop['country'] +" - "+ shop['province'] +" - "+ shop['city'] + "</td>";
                 shops += "<td>" + shop['count_api_order'] + "</td>";
                 shops += "<td>" + shop['count_email_order'] + "</td>";
